@@ -1,0 +1,14 @@
+%footer.d-flex.flex-wrap.justify-content-between.align-items-center.py-3.my-4.border-top.print-hide
+  %p.col-md-6.mb-0.text-body-secondary
+    © 2025 Repebox, Inc [#{time_version}]
+
+  %ul.nav.col-md-6.justify-content-end.align-items-center
+    %li.nav-item= link_to t("navbar.home"), root_path, class: 'nav-link px-2 text-body-secondary'
+    %li.nav-item{ "aria-hidden": "true" } ·
+    %li.nav-item= link_to t("pricing.link"), pricing_path, class: 'nav-link px-2 text-body-secondary'
+    %li.nav-item{ "aria-hidden": "true" } ·
+    %li.nav-item= link_to t("downloads.link"), downloads_path, class: 'nav-link px-2 text-body-secondary'
+    %li.nav-item{ "aria-hidden": "true" } ·
+    %li.nav-item= link_to t("docs.link"), docs_path, class: 'nav-link px-2 text-body-secondary'
+    %li.nav-item{ "aria-hidden": "true" } ·
+    %li.nav-item= link_to t("about.link"), about_path, class: "nav-link px-2 text-body-secondary"

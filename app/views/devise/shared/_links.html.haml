@@ -1,0 +1,26 @@
+-#
+  - if controller_name != 'sessions'
+    = link_to "Log in", new_session_path(resource_name)
+    %br/
+  - if devise_mapping.registerable? && controller_name != 'registrations'
+    = link_to "Sign up", new_registration_path(resource_name)
+    %br/
+  - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+    = link_to "Forgot your password?", new_password_path(resource_name)
+    %br/
+  - if devise_mapping.confirmable? && controller_name != 'confirmations'
+    = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
+    %br/
+  - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
+    = link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name)
+    %br/
+- if devise_mapping.omniauthable?
+  - resource_class.omniauth_providers.each do |provider|
+    = button_to omniauth_authorize_path(resource_name, provider),
+      data: { controller: "google-sign-in", action: "click->google-sign-in#signIn", google_sign_in_client_id_value: Cred[:google_oauth_client_id], turbo: false },
+      class: 'btn btn-danger btn-lg w-100 py-3 fw-bold shadow-sm', form: { class: 'd-grid' } do
+      %i.bi.bi-google.me-2
+      #{t 'user.sign_in_with'} Google
+    %p.text-center.small.text-success.fw-semibold.mt-2
+      %i.bi.bi-star-fill.me-1
+      = t 'user.recommended'

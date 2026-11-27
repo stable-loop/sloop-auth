@@ -1,0 +1,29 @@
+- content_for(:title) { t("pricing.title") }
+- content_for(:description) { t("pricing.intro") }
+
+%main.container.overflow-x-hidden.py-4.py-lg-5
+  .text-center.mb-4
+    %h1.display-6.fw-bold= t("pricing.title")
+    %p.lead.text-body-secondary= t("pricing.intro")
+  .table-responsive
+    %table.table.table-striped.align-middle
+      %thead
+        %tr
+          %th{ scope: "col" }= t("pricing.feature")
+          %th.text-center{ scope: "col" }= t("pricing.visitors")
+          %th.text-center{ scope: "col" }= t("pricing.registered")
+          %th.text-center{ scope: "col" }= t("pricing.subscribed")
+      %tbody
+        - Features.config.each do |feature, availability|
+          %tr
+            %th{ scope: "row" }= t("pricing.features.#{feature}")
+            - availability.each do |available|
+              - bi_class = available ? "bi-check-circle-fill text-success" : "bi-dash-circle text-body-secondary"
+              %td.text-center
+                %i.bi{ class: bi_class, "aria-hidden": "true" }
+                %span.visually-hidden= t(available ? "pricing.available" : "pricing.unavailable")
+  %p.text-body-secondary= t("pricing.public_note")
+  %p.text-body-secondary= t("pricing.ownership_note")
+  %p.text-body-secondary= t("pricing.offline_note")
+  - unless user_signed_in?
+    = link_to t("landing.start"), new_user_registration_path, class: "btn btn-primary"

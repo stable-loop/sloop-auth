@@ -1,0 +1,20 @@
+- content_for(:title) { t("docs.#{guide}.title") }
+
+%h1= t("docs.#{guide}.title")
+%p= t("docs.#{guide}.intro")
+- if guide == "projector"
+  %p= link_to t("docs.screen_mirroring.title"), docs_screen_mirroring_path
+%nav{ "aria-label": t("docs.#{guide}.contents") }
+  %ul
+    - sections.each do |section|
+      %li= link_to t("docs.#{guide}.#{section}.title"), "##{section}"
+- sections.each do |section|
+  %section.mb-4{ id: section }
+    %h2= t("docs.#{guide}.#{section}.title")
+    - t("docs.#{guide}.#{section}.paragraphs").each do |paragraph|
+      %p= paragraph
+    - image = { ["projector", "navigate"] => "projector", ["remote_online", "connect"] => "remote-settings", ["remote_offline", "pair"] => "local-pairing" }[[guide, section]]
+    - if image
+      %figure.my-3
+        = image_tag "docs/#{image}-#{I18n.locale}.png", alt: t("docs.#{guide}.#{section}.image_alt"), class: "img-fluid rounded border", loading: "lazy"
+        %figcaption.small.text-body-secondary.mt-1= t("docs.#{guide}.#{section}.image_alt")

@@ -1,0 +1,40 @@
+- content_for(:title) { t("landing.title") }
+- content_for(:description) { t("landing.description") }
+
+%main.container.py-3.py-lg-5
+  %section.rounded-4.bg-primary-subtle.p-4.p-md-5.mb-5
+    %span.badge.rounded-pill.text-bg-primary.mb-3= t("landing.eyebrow")
+    %h1.display-4.fw-bold.mb-4= t("landing.headline")
+    .row.align-items-center.g-4
+      .col-lg-6
+        %p.lead.text-body-secondary.mb-4= t("landing.intro")
+        .d-flex.flex-wrap.gap-2
+          = link_to t("landing.start"), new_user_registration_path, class: "btn btn-primary btn-lg"
+          = link_to t("landing.explore"), repertories_path, class: "btn btn-outline-primary btn-lg"
+        %p.small.text-body-secondary.mt-3.mb-0= t("landing.guest_note")
+      .col-lg-6
+        = image_tag(landing_illustration, alt: "", loading: "lazy", decoding: "async", width: 1200, height: 681, class: "img-fluid rounded-4 shadow-sm")
+
+  %section.mb-5
+    .text-center.mx-auto.mb-4
+      %p.text-primary.fw-semibold.text-uppercase.small.mb-2= t("landing.features.eyebrow")
+      %h2.display-6.fw-bold= t("landing.features.title")
+      %p.lead.text-body-secondary= t("landing.features.intro")
+    .row.g-3
+      - { songs: "music-note-beamed", repertories: "collection", lists: "list-check", projector: "easel", offline: "wifi-off", collaboration: "people" }.each do |feature, icon|
+        .col-md-6.col-lg-4
+          .card.h-100.shadow-sm
+            .card-body.p-4
+              %i.bi.fs-3.text-primary{ class: "bi-#{icon}", "aria-hidden": "true" }
+              %h3.h5.fw-bold.mt-3= t("landing.features.#{feature}.title")
+              %p.text-body-secondary.mb-0= t("landing.features.#{feature}.body")
+
+  %section.rounded-4.bg-body-tertiary.p-4.p-md-5
+    .row.align-items-center.g-4
+      .col-lg-8
+        %h2.h1.fw-bold= t("landing.closing.title")
+        %p.lead.text-body-secondary.mb-0= t("landing.closing.body")
+      .col-lg-4
+        .d-grid.gap-2
+          = link_to t("landing.start"), new_user_registration_path, class: "btn btn-primary btn-lg"
+          = link_to t("landing.install"), docs_path, class: "btn btn-outline-secondary"

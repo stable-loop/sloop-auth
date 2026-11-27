@@ -1,0 +1,9 @@
+:javascript
+  if (screen.orientation && screen.orientation.lock) {
+    document.addEventListener("turbo:load", function() {
+      const lock = "#{request.path.include?('projector') ? 'landscape' : 'any'}"
+      screen.orientation.lock(lock).catch(function(error) {
+        console.info("Orientation lock not suported: ", error);
+      });
+    });
+  }

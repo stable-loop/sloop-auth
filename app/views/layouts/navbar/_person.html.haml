@@ -1,0 +1,29 @@
+%li.nav-item.dropdown.dropdown-hover.print-hide
+  %a.nav-link.dropdown-toggle{ 'data-bs-toggle': "dropdown", href: "#", aria_expanded: "false", role: "button" }
+    %i.bi.bi-person-circle
+    %span.d-sm-none= t 'navbar.person'
+  %ul.dropdown-menu
+    - if Pundit.policy(current_user, Repertory).new?
+      %li
+        = link_to new_repertory_path, class: 'dropdown-item', title: t('repertory.actions.new') do
+          %i.bi.bi-book
+          = t 'repertory.actions.new'
+    - if Pundit.policy(current_user, Song.new).new?
+      %li
+        = link_to new_song_path, class: 'dropdown-item', title: t('song.actions.new') do
+          %i.bi.bi-music-note
+          = t 'song.actions.new'
+    %li
+      %hr.dropdown-divider/
+    %li
+      = link_to edit_user_registration_path, class: "dropdown-item" do
+        %i.bi.bi-person
+        = t 'user.profile'
+    %li
+      = link_to subscription_path, class: "dropdown-item" do
+        %i.bi.bi-credit-card
+        = t 'subscription.title'
+    %li
+      = link_to destroy_user_session_path, class: "dropdown-item", data: {  turbo_method: :delete } do
+        %i.bi.bi-box-arrow-left
+        = t 'user.exit'

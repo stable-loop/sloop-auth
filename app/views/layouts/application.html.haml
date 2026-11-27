@@ -1,0 +1,25 @@
+!!!
+- repertory_content_url = content_for?(:repertory_content_url) ? yield(:repertory_content_url).strip : nil
+%html{ data: { document: yield_or_default(:title) } }
+  %head
+    = render "layouts/meta_tags"
+    = csrf_meta_tags
+    = csp_meta_tag
+    = yield :head
+    = stylesheet_link_tag :app, "data-turbo-track": "reload"
+    = javascript_importmap_tags
+  %body{ data: { controller: application_body_controllers }, class: body_classes }
+    = render "layouts/navbar"
+    = render "layouts/settings"
+    = render "layouts/flash"
+    .print-content{ data: { controller: print_content_controllers, lazy_reveal_content_url_value: repertory_content_url,
+                            song_notes_hashmap_value:, event_sync_event_id_value: params[:event_id],
+                            action: "lazy-reveal:revealed@window->config--columns#connect" } }
+      .skeleton-placeholder.p-3
+        .skeleton.skeleton-title
+        - 18.times do
+          .skeleton.skeleton-text
+      - if repertory_content_url.blank?
+        %template= yield
+    = render "layouts/footer"
+    = render "layouts/javascript"

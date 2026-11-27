@@ -1,0 +1,35 @@
+- content_for(:title) { t("about.title") }
+- content_for(:description) { t("about.description") }
+
+%main.container.py-4.py-lg-5
+  .row.justify-content-center
+    .col-lg-8
+      .text-center.mb-5
+        %p.text-primary.fw-semibold.text-uppercase.small.mb-2= t("about.eyebrow")
+        %h1.display-5.fw-bold= t("about.title")
+        %p.lead.text-body-secondary= t("about.intro")
+
+      .row.g-4.mb-5
+        .col-md-6
+          .card.h-100.shadow-sm
+            .card-body.p-4
+              %i.bi.bi-people-fill.fs-2.text-primary{ "aria-hidden": "true" }
+              %h2.h4.fw-bold.mt-3= t("about.origin_title")
+              %p.text-body-secondary.mb-0= t("about.origin_body")
+        .col-md-6
+          .card.h-100.shadow-sm
+            .card-body.p-4
+              %i.bi.bi-stars.fs-2.text-primary{ "aria-hidden": "true" }
+              %h2.h4.fw-bold.mt-3
+                = t("about.development_title_prefix")
+                = link_to "Stableloop", "https://stableloop.dev", target: "_blank", rel: "noopener noreferrer"
+              %p.text-body-secondary.mb-0
+                = link_to "Stableloop", "https://stableloop.dev", target: "_blank", rel: "noopener noreferrer"
+                = t("about.development_body_after")
+
+      .rounded-4.bg-primary-subtle.p-4.p-md-5.text-center
+        %h2.h3.fw-bold= t("about.vision_title")
+        %p.lead.mb-4= t("about.vision_body")
+        %p.mb-0.fw-semibold
+          = t("about.blessing")
+          %span.fs-4.ms-2{ "aria-hidden": "true" } 🙏

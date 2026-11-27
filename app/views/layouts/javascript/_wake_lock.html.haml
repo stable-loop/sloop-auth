@@ -1,0 +1,20 @@
+:javascript
+  // Lock screen orientation to any on page load
+  document.addEventListener("turbo:load", function() {
+    if (!('wakeLock' in navigator)) {
+      console.warn('Wake Lock API not supported');
+      return;
+    }
+    let wakeLock = null;
+
+    async function requestWakeLock() {
+      try {
+        wakeLock = await navigator.wakeLock.request("screen");
+        console.info("Wake Lock is active, preventing screen from dimming or locking.");
+      } catch (err) {
+        // The Wake Lock request has failed - usually system related, such as battery.
+        console.warn(`${err.name}, ${err.message}`) ;
+      }
+    }
+    requestWakeLock();
+  });

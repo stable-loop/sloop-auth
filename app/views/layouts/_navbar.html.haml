@@ -1,0 +1,21 @@
+%a.close-navbar-toggler.collapsed{ data: { bs_toggle:"collapse", bs_target:"#navbar" } }
+%nav.navbar.navbar-expand-sm.fixed-top.bg-body-tertiary
+  .container-fluid
+    = link_to root_path, class: "navbar-brand print-hide", title: t('navbar.home') do
+      = image_tag nav_logo_by_mode, alt: t('navbar.home'), class: 'logo', style: 'height: 28px'
+    %button.navbar-toggler{ data: { bs: { target: "#navbar", toggle: "collapse" } } }
+      %span.navbar-toggler-icon
+    #navbar.navbar-collapse.collapse.bg-body-tertiary
+      %ul.navbar-nav.ms-sm-auto
+        - if user_signed_in?
+          = render 'layouts/navbar/person'
+        - else
+          %li.nav-item.print-hide
+            = link_to t("pricing.link"), pricing_path, class: "nav-link"
+          %li.nav-item.print-hide
+            = link_to t("downloads.link"), downloads_path, class: "nav-link"
+          = render 'layouts/navbar/login'
+        = render 'layouts/navbar/settings'
+        %li.nav-item.print-hide
+          = link_to docs_path, class: "nav-link", title: t("docs.link") do
+            %i.bi.bi-question-circle

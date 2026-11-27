@@ -1,0 +1,15 @@
+%meta{ content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"  }
+%title= yield_or_default(:title)
+%meta{ property: "og:site_name",   content: "Repebox" }
+%meta{ property: "og:image", content: content_for(:image) || asset_url('/icon_mobile.png') }
+%meta{ property: "og:title",       content: yield_or_default(:title) }
+%meta{ property: "og:description", content: yield_or_default(:description) }
+%meta{ name: "description",        content: yield_or_default(:description) }
+%meta{ content: "width=device-width,initial-scale=1", name: "viewport" }
+%meta{ content: "yes", name: "apple-mobile-web-app-capable" }
+%meta{ content: "yes", name: "mobile-web-app-capable" }
+%link{ rel: "icon", href: "/icon_mobile.png", type: "image/png" }
+%link{ rel: "icon", href: "/icon_mobile.svg", type: "image/svg+xml" }
+%link{ rel: "apple-touch-icon", href: "/icon_square.png" }
+%link{ rel: "apple-touch-startup-image", href: "/icon_square.png" }
+%link{ href: pwa_manifest_path(format: :json), rel: "manifest" }

@@ -1,0 +1,34 @@
+#offcanvasRight.offcanvas.offcanvas-end{ "aria-labelledby" => "offcanvasRightLabel", tabindex: "-1" }
+  .offcanvas-header
+    %h5#offcanvasRightLabel.offcanvas-title #{t 'setting.settings'}
+    %button.btn-close{ "aria-label" => t('actions.close'), "data-bs-dismiss" => "offcanvas", :type => "button" }
+  .offcanvas-body
+    .form-check.form-switch.mb-3
+      %input.form-check-input{ type: "checkbox", data: { action: "config--lyrics#toggle" }, checked: lyrics_mode? }
+      %label.form-check-label= t 'setting.lyrics_mode'
+    .form-check.form-switch.mb-3
+      %input.form-check-input{ type: "checkbox", data: { action: "config--alphabetic#toggle" }, checked: alphabetic_mode?, title: '(A B C D E F G)' }
+      %label.form-check-label= t 'setting.alphabetic_mode'
+    .form-check.form-switch.mb-3
+      %input.form-check-input{ type: "checkbox", data: { action: "config--scroll-buttons#toggle" }, checked: scroll_buttons? }
+      %label.form-check-label= t 'setting.scroll_buttons'
+    .form-check.form-switch.mb-3
+      %input.form-check-input{ type: "checkbox", data: { action: "config--theme#toggle" }, checked: dark_mode? }
+      %label.form-check-label= t 'setting.dark_mode'
+    .form-check.form-switch.mb-3
+      %input.form-check-input{ type: "checkbox", data: { action: "config--columns#toggle" }, checked: columns_mode? }
+      %label.form-check-label= t 'setting.columns_mode'
+    .form-check.form-switch.mb-3
+      %input#remote-control-mode.form-check-input{ type: "checkbox", data: { action: "config--remote-control#toggle" }, checked: remote_control_mode? }
+      %label.form-check-label{ for: "remote-control-mode" }= t 'setting.remote_control_mode'
+    = render "layouts/components/peer_link", role: "guest"
+    .form-check.form-switch.mb-3
+      %input.form-check-input{ type: "checkbox", data: { action: "config--black-background#toggle" }, checked: black_background_mode? }
+      %label.form-check-label= t 'setting.black_background_mode'
+    %div
+      .btn-group#locale{ role: "group" }
+        - I18n.available_locales.each do |l|
+          - text_color = ((locale == l || dark_mode?) ? "text-white" : "text-body")
+          - btn_color = ((locale == l) ? "btn-primary" : "btn-secondary")
+          %button.btn{ class: btn_color }
+            = link_to t("setting.locale_#{l}".to_sym), "/locale/#{l}", class: "link-underline link-underline-opacity-0 #{text_color} p-0"
