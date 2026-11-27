@@ -45,6 +45,8 @@ bin/rails db:migrate
 
 The command removes the generated `application.html.erb`, `mailer.html.erb`,
 `mailer.text.erb`, and `pwa/manifest.json.erb` view files when present.
+It also creates empty `app/assets/images/nav_dark.png` and
+`app/assets/images/nav_light.png` files when needed.
 
 It also adds the Devise and Google sign-in routes directly to
 `config/routes.rb` if they are not already present:

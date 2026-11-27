@@ -1,3 +1,0 @@
-- if controller?('songs') || request.path == root_path
-  = form_with url: songs_path, method: :get, local: true, class: 'd-flex print-hide' do |f|
-    = f.text_field :search, value: params[:search], placeholder: t('actions.search'), class: 'form-control me-2'

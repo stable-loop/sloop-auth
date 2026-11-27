@@ -1,0 +1,16 @@
+es:
+  user:
+    sign_in: "Entrar"
+    sign_in_with: "Entra con"
+    exit: "Salir"
+    or_with_email: "o con tu email"
+    recommended: "Google es la forma más rápida y segura de entrar"
+    email: "Email"
+    password_hint: "Mayúscula, minúscula, número y símbolo"
+    password: "Contraseña"
+    password_confirmation: "Confirmar contraseña"
+    min_password: "(mínimo %{count} caracteres)"
+    sign_up: "Regístrate"
+    no_account: "¿No tienes cuenta?"
+    have_account: "¿Ya tienes cuenta?"
+    remember_me: "Recuérdame"

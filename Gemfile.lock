@@ -6,6 +6,7 @@ PATH
       haml
       haml-rails
       html2haml
+      nokogiri
       omniauth-google-oauth2
       omniauth-rails_csrf_protection
       pundit

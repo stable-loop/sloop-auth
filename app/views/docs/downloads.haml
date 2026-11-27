@@ -10,13 +10,17 @@
         %p.lead.text-body-secondary.mb-0= t("downloads.intro")
 
       .row.g-4
-        - Package::DOWNLOAD_PACKAGES.each do |package|
-          .col-md-6.col-lg-3
-            .card.h-100.shadow-sm
-              .card-body.d-flex.flex-column.p-4
-                .d-flex.align-items-center.gap-3.mb-3
-                  %i.bi.fs-2.text-primary{ class: "bi-#{package.fetch(:icon)}", "aria-hidden": "true" }
-                  %div
-                    %h2.h5.fw-bold.mb-1= t("downloads.platforms.#{package.fetch(:platform)}")
-                    %span.small.text-body-secondary= package.fetch(:filename)
-                = link_to t("downloads.download"), package.fetch(:url), class: "btn btn-primary mt-auto", target: "_blank", rel: "noopener"
+        - if defined?(Package::DOWNLOAD_PACKAGES)
+          - Package::DOWNLOAD_PACKAGES.each do |package|
+            .col-md-6.col-lg-3
+              .card.h-100.shadow-sm
+                .card-body.d-flex.flex-column.p-4
+                  .d-flex.align-items-center.gap-3.mb-3
+                    %i.bi.fs-2.text-primary{ class: "bi-#{package.fetch(:icon)}", "aria-hidden": "true" }
+                    %div
+                      %h2.h5.fw-bold.mb-1= t("downloads.platforms.#{package.fetch(:platform)}")
+                      %span.small.text-body-secondary= package.fetch(:filename)
+                  = link_to t("downloads.download"), package.fetch(:url), class: "btn btn-primary mt-auto", target: "_blank", rel: "noopener"
+        - else
+          .col-12
+            %p.text-center.text-body-secondary.mb-0= t("downloads.coming_soon", default: "Los paquetes se publicarán próximamente")

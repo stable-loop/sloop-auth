@@ -3,18 +3,5 @@
   %aside#docs-sidebar.collapse.collapse-horizontal.show{ style: "max-width: 100%;" }
     %nav.pe-3.pb-3{ "aria-label": t("docs.link"), style: "width: 18rem; max-width: 100%;" }
       %ul.nav.nav-pills.flex-column
-        - [["index", "install", docs_path], ["songs", "songs", docs_songs_path], ["repertories", "repertories", docs_repertories_path], ["add_songs_to_repertories", "add_songs_to_repertories", docs_add_songs_to_repertories_path]].each do |action, key, path|
-          %li.nav-item
-            = link_to t("docs.#{key}.title"), path, class: "nav-link #{'active' if action_name == action}", aria: { current: ("page" if action_name == action) }
-        %li.nav-item.live-shows
-          %span.nav-link.text-muted.fw-semibold= t("docs.live_shows.title")
-          %ul.nav.nav-pills.flex-column.ms-3
-            - [["events", docs_events_path], ["lists", docs_lists_path]].each do |action, path|
-              %li.nav-item
-                = link_to t("docs.#{action}.title"), path, class: "nav-link #{'active' if action_name == action}", aria: { current: ("page" if action_name == action) }
         %li.nav-item
-          = link_to t("docs.projector.title"), docs_projector_path, class: "nav-link #{'active' if action_name == 'projector'}", aria: { current: ("page" if action_name == "projector") }
-          %ul.nav.nav-pills.flex-column.ms-3
-            - [["screen_mirroring", docs_screen_mirroring_path], ["remote_online", docs_remote_online_path], ["remote_offline", docs_remote_offline_path]].each do |remote_action, remote_path|
-              %li.nav-item
-                = link_to t("docs.#{remote_action}.title"), remote_path, class: "nav-link #{'active' if action_name == remote_action}", aria: { current: ("page" if action_name == remote_action) }
+          %span.nav-link.text-muted.fw-semibold= t("under_construction")

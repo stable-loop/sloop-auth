@@ -13,6 +13,10 @@ FILES = [
     "db/migrate/20261127172028_add_fields_to_user.rb"
   ],
   [
+    "templates/db/migrate/20261127172029_add_name_to_users.rb",
+    "db/migrate/20261127172029_add_name_to_users.rb"
+  ],
+  [
     "templates/app/policies/application_policy.rb",
     "app/policies/application_policy.rb"
   ],
@@ -27,6 +31,10 @@ FILES = [
   [
     "templates/spec/factories/users.rb",
     "spec/factories/users.rb"
+  ],
+  [
+    "templates/config/features.yml",
+    "config/features.yml"
   ]
 ].freeze
 
@@ -35,6 +43,17 @@ REMOVE_FILES = [
   "app/views/layouts/mailer.html.erb",
   "app/views/layouts/mailer.text.erb",
   "app/views/pwa/manifest.json.erb"
+].freeze
+
+ASSET_FILES = [
+  [
+    "app/assets/images/nav_dark.png",
+    "app/assets/images/nav_dark.png"
+  ],
+  [
+    "app/assets/images/nav_light.png",
+    "app/assets/images/nav_light.png"
+  ]
 ].freeze
 
 AUTHENTICATION_ROUTES = <<-RUBY
@@ -78,6 +97,16 @@ REMOVE_FILES.each do |relative_path|
 
   FileUtils.rm(path)
   puts "Removed #{path}"
+end
+
+ASSET_FILES.each do |source, relative_path|
+  source = File.join(File.expand_path("..", __dir__), source)
+  path = File.join(host_root, relative_path)
+  next if File.file?(path) && File.size(path).positive?
+
+  FileUtils.mkdir_p(File.dirname(path))
+  FileUtils.cp(source, path)
+  puts "Copied #{source} to #{path}"
 end
 
 routes_path = File.join(host_root, "config/routes.rb")

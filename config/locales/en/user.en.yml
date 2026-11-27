@@ -1,0 +1,16 @@
+en:
+  user:
+    sign_in: "Sign in"
+    sign_in_with: "Sign in with"
+    exit: "Exit"
+    or_with_email: "or with your email"
+    recommended: "Google is fastest and safest way to sign in"
+    email: "Email"
+    password_hint: "Upper and lower case, number and symbol"
+    password: "Password"
+    password_confirmation: "Confirm password"
+    min_password: "(%{count} characters minimum)"
+    sign_up: "Sign up"
+    no_account: "Don't have an account?"
+    have_account: "Already have an account?"
+    remember_me: "Remember me"

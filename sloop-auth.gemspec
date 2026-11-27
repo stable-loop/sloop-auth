@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "pundit"
   spec.add_dependency "haml"
   spec.add_dependency "haml-rails"
+  spec.add_dependency "nokogiri"
   spec.add_dependency "html2haml"
   spec.add_dependency "omniauth-google-oauth2"
   spec.add_dependency "omniauth-rails_csrf_protection"

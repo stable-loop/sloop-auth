@@ -1,0 +1,11 @@
+en:
+  navbar:
+    home: "Home"
+  pricing:
+    link: "Pricing"
+  downloads:
+    link: "Downloads"
+  docs:
+    link: "Help"
+  about:
+    link: "About"

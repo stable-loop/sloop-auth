@@ -1,0 +1,11 @@
+es:
+  navbar:
+    home: "Inicio"
+  pricing:
+    link: "Precios"
+  downloads:
+    link: "Descargas"
+  docs:
+    link: "Ayuda"
+  about:
+    link: "Nosotros"

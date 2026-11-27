@@ -1,12 +1,19 @@
 # frozen_string_literal: true
 
 require "rails/engine"
+require_relative "../../../app/helpers/sloop/auth/application_helper"
 
 module Sloop
   module Auth
     class Engine < ::Rails::Engine
       initializer "sloop_auth.load_locales" do |app|
         app.config.i18n.load_path += Dir[Sloop::Auth::Engine.root.join("config/locales/**/*.yml")]
+      end
+
+      initializer "sloop_auth.helpers" do
+        ActiveSupport.on_load(:action_controller) do
+          helper Sloop::Auth::ApplicationHelper
+        end
       end
 
       config.to_prepare do

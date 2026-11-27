@@ -1,0 +1,20 @@
+# Features configuration file
+# Digit: 1 = enabled, 0 = disabled
+# First digit for 'Visitors' features,
+# Second for 'Free registered users',
+# Third for 'Subscribed users'.
+
+# public_content: "111"
+# projection: "111"
+# remote_local: "111"
+# multiplatform: "111"
+# device_sync: "111"
+# install: "111"
+# offline: "111"
+# remote_online: "011"
+# create_songs: "011"
+# create_repertories: "011"
+# create_lists: "011"
+# collaborate: "011"
+# private_repertories_and_songs: "001"
+# record_song_version: "001"

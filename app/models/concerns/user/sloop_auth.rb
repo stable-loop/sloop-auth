@@ -12,6 +12,11 @@ module User::SloopAuth
     validate :password_complexity, if: -> { password.present? && provider.blank? }
   end
 
+  def to_s
+    return name if name.present?
+    email.split("@")[0]
+  end
+
   class_methods do
     def from_google(user_attributes)
       create_with(
