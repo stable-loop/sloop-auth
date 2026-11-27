@@ -7,7 +7,7 @@
     = yield :head
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
-  %body.p-3.pt-5
+  %body.p-3.pt-5{ data: { controller: "config--theme" } }
     = render "layouts/navbar"
     = render "layouts/settings"
     = render "layouts/flash"
