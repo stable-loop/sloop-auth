@@ -74,6 +74,7 @@ DOCUMENTATION_ROUTES = <<-RUBY
   get :downloads, to: "docs#downloads"
   get :docs, to: "docs#index"
 RUBY
+LOCALE_ROUTE = '  get "/locale/:id" => "locale#switch"'
 
 unless ARGV == ["init"]
   warn "Usage: sloop-auth init"
@@ -116,6 +117,7 @@ routes = File.read(routes_path)
 routes_to_add = []
 routes_to_add << AUTHENTICATION_ROUTES.rstrip unless routes.include?(AUTHENTICATION_ROUTES)
 routes_to_add << DOCUMENTATION_ROUTES.rstrip unless routes.include?(DOCUMENTATION_ROUTES)
+routes_to_add << LOCALE_ROUTE unless routes.include?(LOCALE_ROUTE)
 
 unless routes_to_add.empty?
   updated_routes = routes.sub(/\nend\s*\z/, "\n#{routes_to_add.join("\n")}\nend\n")

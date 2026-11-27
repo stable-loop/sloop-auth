@@ -2,6 +2,7 @@
 
 require "rails/engine"
 require_relative "../../../app/helpers/sloop/auth/application_helper"
+require_relative "../../../app/controllers/concerns/sloop/auth/localization"
 
 module Sloop
   module Auth
@@ -20,6 +21,7 @@ module Sloop
       initializer "sloop_auth.helpers" do
         ActiveSupport.on_load(:action_controller) do
           helper Sloop::Auth::ApplicationHelper
+          include Sloop::Auth::Localization
         end
       end
 

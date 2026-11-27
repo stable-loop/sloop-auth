@@ -1,3 +1,5 @@
 en:
   setting:
     dark_mode: "Style: Dark Mode"
+    locale_es: "🇪🇸 Spanish"
+    locale_en: "🇬🇧 English"
