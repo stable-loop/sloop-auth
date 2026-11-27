@@ -6,8 +6,10 @@ Gem::Specification.new do |spec|
   spec.summary = "Reusable authentication views and controllers for Stableloop applications"
   spec.authors = ["Stableloop"]
   spec.required_ruby_version = ">= 3.2"
-  spec.files = Dir.chdir(__dir__) { Dir["app/**/*", "config/**/*", "lib/**/*", "README.md"].select { |path| File.file?(path) } }
+  spec.files = Dir.chdir(__dir__) { Dir["app/**/*", "config/**/*", "exe/**/*", "lib/**/*", "templates/**/*", "README.md"].select { |path| File.file?(path) } }
   spec.require_paths = ["lib"]
+  spec.bindir = "exe"
+  spec.executables = ["sloop-auth"]
 
   spec.add_dependency "devise"
   spec.add_dependency "pundit"

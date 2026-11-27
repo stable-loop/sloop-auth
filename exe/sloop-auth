@@ -1,0 +1,103 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+require "rbconfig"
+
+FILES = [
+  [
+    "templates/db/migrate/20261127172027_devise_create_users.rb",
+    "db/migrate/20261127172027_devise_create_users.rb"
+  ],
+  [
+    "templates/db/migrate/20261127172028_add_fields_to_user.rb",
+    "db/migrate/20261127172028_add_fields_to_user.rb"
+  ],
+  [
+    "templates/app/policies/application_policy.rb",
+    "app/policies/application_policy.rb"
+  ],
+  [
+    "templates/app/models/user.rb",
+    "app/models/user.rb"
+  ],
+  [
+    "templates/spec/models/user_spec.rb",
+    "spec/models/user_spec.rb"
+  ],
+  [
+    "templates/spec/factories/users.rb",
+    "spec/factories/users.rb"
+  ]
+].freeze
+
+REMOVE_FILES = [
+  "app/views/layouts/application.html.erb",
+  "app/views/layouts/mailer.html.erb",
+  "app/views/layouts/mailer.text.erb",
+  "app/views/pwa/manifest.json.erb"
+].freeze
+
+AUTHENTICATION_ROUTES = <<-RUBY
+  devise_for :users, controllers: {
+    omniauth_callbacks: "users/omniauth_callbacks",
+    sessions: "users/sessions",
+    registrations: "users/registrations"
+  }
+  post "users/google_sign_in", to: "users/google_sign_ins#create"
+RUBY
+DOCUMENTATION_ROUTES = <<-RUBY
+  authenticated :user do
+    root "docs#index", as: :authenticated_root
+  end
+  root "docs#landing"
+  get :about, to: "docs#about"
+  get :pricing, to: "docs#pricing"
+  get :downloads, to: "docs#downloads"
+  get :docs, to: "docs#index"
+RUBY
+
+unless ARGV == ["init"]
+  warn "Usage: sloop-auth init"
+  exit 1
+end
+
+host_root = Dir.pwd
+template_root = File.expand_path("../templates", __dir__)
+
+FILES.each do |source, destination|
+  source = File.join(template_root, source.delete_prefix("templates/"))
+  destination = File.join(host_root, destination)
+  FileUtils.mkdir_p(File.dirname(destination))
+  FileUtils.cp(source, destination)
+  puts "Copied #{source} to #{destination}"
+end
+
+REMOVE_FILES.each do |relative_path|
+  path = File.join(host_root, relative_path)
+  next unless File.file?(path)
+
+  FileUtils.rm(path)
+  puts "Removed #{path}"
+end
+
+routes_path = File.join(host_root, "config/routes.rb")
+abort "Routes file not found: #{routes_path}" unless File.file?(routes_path)
+
+routes = File.read(routes_path)
+routes_to_add = []
+routes_to_add << AUTHENTICATION_ROUTES.rstrip unless routes.include?(AUTHENTICATION_ROUTES)
+routes_to_add << DOCUMENTATION_ROUTES.rstrip unless routes.include?(DOCUMENTATION_ROUTES)
+
+unless routes_to_add.empty?
+  updated_routes = routes.sub(/\nend\s*\z/, "\n#{routes_to_add.join("\n")}\nend\n")
+  abort "Could not find the Rails routes block in #{routes_path}" if updated_routes == routes
+
+  File.write(routes_path, updated_routes)
+  puts "Added authentication and documentation routes to #{routes_path}"
+end
+
+rails = File.expand_path("bin/rails", host_root)
+rails = "rails" unless File.executable?(rails)
+
+puts "\n> #{rails} db:migrate"
+abort "Command failed: db:migrate" unless system(RbConfig.ruby, rails, "db:migrate")
