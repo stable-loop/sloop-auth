@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require "fileutils"
+require "json"
 require "rbconfig"
 
 FILES = [
@@ -75,6 +76,9 @@ DOCUMENTATION_ROUTES = <<-RUBY
   get :docs, to: "docs#index"
 RUBY
 LOCALE_ROUTE = '  get "/locale/:id" => "locale#switch"'
+SASS_GEM_PATH = '$(bundle show sloop-auth 2>/dev/null || printf ../sloop-auth)/app/assets/stylesheets'
+SASS_LOAD_PATH = "--load-path=#{SASS_GEM_PATH}"
+SASS_WATCH_PATH = "\"#{SASS_GEM_PATH}\""
 
 unless ARGV == ["init"]
   warn "Usage: sloop-auth init"
@@ -125,6 +129,36 @@ unless routes_to_add.empty?
 
   File.write(routes_path, updated_routes)
   puts "Added authentication and documentation routes to #{routes_path}"
+end
+
+package_path = File.join(host_root, "package.json")
+if File.file?(package_path)
+  package = JSON.parse(File.read(package_path))
+  scripts = package.fetch("scripts", {})
+
+  if scripts["build:css:compile"] && !scripts["build:css:compile"].include?(SASS_LOAD_PATH)
+    scripts["build:css:compile"] = "#{scripts["build:css:compile"]} #{SASS_LOAD_PATH}"
+  end
+
+  if scripts["watch:css"] && !scripts["watch:css"].include?(SASS_GEM_PATH)
+    scripts["watch:css"] = scripts["watch:css"].sub(
+      "--ext scss",
+      "--watch #{SASS_WATCH_PATH} --ext scss"
+    )
+  end
+
+  File.write(package_path, "#{JSON.pretty_generate(package)}\n")
+  puts "Configured sloop-auth SCSS in #{package_path}"
+end
+
+stylesheet_path = Dir[File.join(host_root, "app/assets/stylesheets/application*.scss")].first
+if stylesheet_path
+  stylesheet = File.read(stylesheet_path)
+  unless stylesheet.include?("@import 'sloop_auth/docs';")
+    stylesheet = "#{stylesheet.rstrip}\n@import 'sloop_auth/docs';\n"
+    File.write(stylesheet_path, stylesheet)
+    puts "Imported sloop-auth SCSS in #{stylesheet_path}"
+  end
 end
 
 rails = File.expand_path("bin/rails", host_root)

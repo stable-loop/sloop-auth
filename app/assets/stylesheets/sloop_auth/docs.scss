@@ -1,0 +1,54 @@
+.docs-content section {
+  scroll-margin-top: 5rem;
+}
+
+.docs-sidebar-toggle[aria-expanded="true"] {
+  .docs-sidebar-toggle-icon--collapsed {
+    display: none;
+  }
+}
+
+.docs-sidebar-toggle[aria-expanded="false"] {
+  .docs-sidebar-toggle-icon--expanded,
+  .docs-sidebar-toggle-label {
+    display: none;
+  }
+}
+
+#docs-sidebar > nav {
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+}
+
+#docs-sidebar.collapsing,
+#docs-sidebar.collapsing > nav {
+  max-width: none !important;
+}
+
+#docs-sidebar.collapsing > nav {
+  visibility: hidden;
+}
+
+.docs-sidebar-column:has(#docs-sidebar.collapsing) .docs-sidebar-toggle-label {
+  display: none;
+}
+
+@include media-breakpoint-up(md) {
+  .docs-content .docs-sidebar-column {
+    position: sticky;
+    top: 5rem;
+    align-self: flex-start;
+    max-height: calc(100vh - 5rem);
+    transition: width 0.35s ease;
+
+    &:has(#docs-sidebar:not(.show)) {
+      width: 2.5rem;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .docs-content .docs-sidebar-column {
+    transition: none;
+  }
+}
